@@ -65,6 +65,9 @@ jobs:
   build:
     name: Build docker image
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture: [ amd64, arm64 ]
     needs: [ test ]
 
     permissions:
@@ -106,3 +109,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/${{ matrix.architecture }}
