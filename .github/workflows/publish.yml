@@ -64,19 +64,13 @@ jobs:
 
   build:
     name: Build docker image
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        include:
-          - architecture: amd64
-            docker_platform: linux/amd64
-            runs_on: ubuntu-latest
-          - architecture: arm64
-            docker_platform: linux/arm64
-            runs_on: macos-latest
-
-    runs-on: ${{ matrix.runs_on }}
-
+        platform:
+          - linux/amd64
+          - linux/arm64/v8
 #    needs: [ test ]
 
     permissions:
@@ -120,6 +114,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: ${{ matrix.docker_platform }}
+          platforms: ${{ matrix.platform }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
