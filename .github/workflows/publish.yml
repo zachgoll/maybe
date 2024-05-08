@@ -68,6 +68,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64/v8
+
     permissions:
       contents: read
       packages: write
@@ -109,8 +115,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          annotations: ${{ steps.meta.outputs.annotations }}
-          platforms: linux/amd64,linux/arm64/v8
+          platforms: ${{ matrix.platforms }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
+          # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#adding-a-description-to-multi-arch-images
+          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.description'] }}
