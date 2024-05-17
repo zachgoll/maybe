@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  layout "with_sidebar"
+
   include Filterable
   before_action :set_account, only: %i[ show update destroy sync ]
 
@@ -48,15 +50,18 @@ class AccountsController < ApplicationController
         end
       end
     else
-      render "edit", status: :unprocessable_entity
+      render "show", status: :unprocessable_entity
     end
   end
 
   def create
-    @account = Current.family.accounts.build(account_params.except(:accountable_type))
+    @account = Current.family.accounts.build(account_params.except(:accountable_type, :start_date))
     @account.accountable = Accountable.from_type(account_params[:accountable_type])&.new
 
     if @account.save
+      @valuation = @account.valuations.new(date: account_params[:start_date] || Date.today, value: @account.balance, currency: @account.currency)
+      @valuation.save!
+
       redirect_to accounts_path, notice: t(".success")
     else
       render "new", status: :unprocessable_entity
@@ -81,11 +86,11 @@ class AccountsController < ApplicationController
 
   private
 
-  def set_account
-    @account = Current.family.accounts.find(params[:id])
-  end
+    def set_account
+      @account = Current.family.accounts.find(params[:id])
+    end
 
-  def account_params
-    params.require(:account).permit(:name, :accountable_type, :balance, :currency, :subtype, :is_active)
-  end
+    def account_params
+      params.require(:account).permit(:name, :accountable_type, :balance, :start_date, :currency, :subtype, :is_active)
+    end
 end
