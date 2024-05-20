@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: fb4300ce193c338e00c8fe3a8372dc594f6c5de8
+  revision: ed50b93ebcf3c1a92ac3481297c07c33d9f7c161
   branch: 7-2-stable
   specs:
     actioncable (7.2.0.alpha)
@@ -86,7 +86,7 @@ GIT
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
-      minitest (>= 5.1, < 5.22.0)
+      minitest (>= 5.1)
       tzinfo (~> 2.0, >= 2.0.5)
     rails (7.2.0.alpha)
       actioncable (= 7.2.0.alpha)
@@ -171,6 +171,7 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    docile (1.4.0)
     dotenv (3.1.2)
     dotenv-rails (3.1.2)
       dotenv (= 3.1.2)
@@ -198,7 +199,7 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    good_job (3.28.2)
+    good_job (3.28.3)
       activejob (>= 6.0.0)
       activerecord (>= 6.0.0)
       concurrent-ruby (>= 1.0.2)
@@ -260,8 +261,8 @@ GEM
     matrix (0.4.2)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    minitest (5.21.2)
-    mocha (2.2.0)
+    minitest (5.23.0)
+    mocha (2.3.0)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.7.2)
     net-http (0.4.1)
@@ -310,7 +311,7 @@ GEM
     puma (6.4.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.7.3)
+    racc (1.8.0)
     rack (3.0.11)
     rack-session (2.0.0)
       rack (>= 3.0.0)
@@ -399,6 +400,12 @@ GEM
     sentry-ruby (5.17.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
     sorbet-runtime (0.5.11383)
     stackprof (0.2.26)
@@ -493,6 +500,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-rails
   sentry-ruby
+  simplecov
   stackprof
   stimulus-rails
   tailwindcss-rails
